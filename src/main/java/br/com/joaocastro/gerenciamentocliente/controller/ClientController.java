@@ -33,6 +33,16 @@ public class ClientController {
         return clientService.findById(id);
     }
 
+    @GetMapping("/email/{email}")
+    public Client findByEmail(@PathVariable("email") String email){
+        return clientService.findByEmail(email);
+    }
+
+    @GetMapping("/phone/{phone}")
+    public Client findByPhone(@PathVariable("phone") String phone){
+        return clientService.findByPhone(phone);
+    }
+
     @PutMapping("/{id}")
     public Client updateClient(@PathVariable("id") Long id, @RequestBody @Valid ClientDto clientDto){
         return clientService.updateClient(id, clientDto);
