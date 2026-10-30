@@ -1,6 +1,7 @@
 package br.com.joaocastro.gerenciamentocliente.Service;
 
 
+import br.com.joaocastro.gerenciamentocliente.dto.ClientDto;
 import br.com.joaocastro.gerenciamentocliente.infra.entity.Client;
 import br.com.joaocastro.gerenciamentocliente.infra.repository.ClientRepository;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,12 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Client createClient(Client client){
+    public Client createClient(ClientDto dto){
+        Client client = new Client();
+        client.setName(dto.getName());
+        client.setEmail(dto.getEmail());
+        client.setPhone(dto.getPhone());
+        client.setAddress(dto.getAddress());
         return clientRepository.save(client);
     }
 
@@ -32,14 +38,14 @@ public class ClientService {
     }
 
 
-    public Client updateClient(Long id, Client dados) {
+    public Client updateClient(Long id, ClientDto dto) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o id: " + id));
 
-        client.setName(dados.getName());
-        client.setEmail(dados.getEmail());
-        client.setPhone(dados.getPhone());
-        client.setAddress(dados.getAddress());
+        client.setName(dto.getName());
+        client.setEmail(dto.getEmail());
+        client.setPhone(dto.getPhone());
+        client.setAddress(dto.getAddress());
 
         return clientRepository.save(client);
 
